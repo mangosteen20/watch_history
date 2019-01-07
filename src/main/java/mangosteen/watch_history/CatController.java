@@ -66,7 +66,7 @@ public class CatController {
         Category updatedCategory = cat_repo.findById(id)
                 .map(category -> {
                     category.setName(newCategory.getName());
-                    category.setFreq(newCategory.getFreq());
+                    category.setTime(newCategory.getTime());
                     return cat_repo.save(category);
                 })
                 .orElseGet(() -> {

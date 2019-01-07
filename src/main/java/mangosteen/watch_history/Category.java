@@ -17,6 +17,6 @@ public class Category {
 
     private String name;
 
-    private Integer freq;
+    private Integer time;
 
 }
