@@ -1,6 +1,6 @@
 # watch_history
 
-youtime's backend.
+Handle youtime's requests.
 
 - Implemented in Spring Framework, with Spring HATEOAS to provide standard REST service.
 - Stores YouTube watch time and categories data in MySQL, with Spring Data JPA to access data.
