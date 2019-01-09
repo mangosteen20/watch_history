@@ -1,6 +1,6 @@
 # watch_history
 
-Handle youtime's requests.
+Handle [youtime](https://github.com/mangosteen20/youtime)'s requests.
 
 - Implemented in Spring Framework, with Spring HATEOAS to provide standard REST service.
 - Stores YouTube watch time and categories data in MySQL, with Spring Data JPA to access data.
