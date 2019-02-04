@@ -32,7 +32,7 @@ public class CatController {
 
     private final CategoryResourceAssembler cat_assem;
 
-    private List<Category> cat_top3;
+    private List<Category> cat_top3;    // 3 categories watched most
 
     CatController(CatRepository repository, CategoryResourceAssembler assembler) {
         this.cat_repo = repository;
@@ -40,6 +40,7 @@ public class CatController {
         this.cat_top3 = findTop3();
     }
 
+    /* find top 3 categories by using a max heap */
     private List<Category> findTop3() {
         List<Category> top3 = new ArrayList<Category>();
 
@@ -70,6 +71,7 @@ public class CatController {
         return top3;
     }
 
+    /* get all categories */
     @GetMapping("/categories")
     Resources<Resource<Category>> all(){
         List<Resource<Category>> categories = cat_repo.findAll().stream()
@@ -79,6 +81,7 @@ public class CatController {
                 linkTo(methodOn(CatController.class).all()).withSelfRel());
     }
 
+    /* get top 3 categories */
     @GetMapping("/top3")
     Resources<Resource<Category>> top3(){
         cat_top3 = findTop3();
@@ -90,6 +93,7 @@ public class CatController {
     }
 
 
+    /* post an unseen category */
     @PostMapping("/categories")
     ResponseEntity<?> newCategory(@RequestBody Category newCategory) throws URISyntaxException {
         Resource<Category> resource = cat_assem.toResource(cat_repo.save(newCategory));
@@ -99,8 +103,7 @@ public class CatController {
                 .body(resource);
     }
 
-    //Single item
-
+    /* get a single item by id */
     @GetMapping("/categories/{id}")
     Resource<Category> one(@PathVariable Long id) {
         Category cat = cat_repo.findById(id)
@@ -108,6 +111,7 @@ public class CatController {
         return cat_assem.toResource(cat);
     }
 
+    /* put a single item by id */
     @PutMapping("/categories/{id}")
     ResponseEntity<?> replaceCategory(@RequestBody Category newCategory, @PathVariable Long id) throws URISyntaxException {
         Category updatedCategory = cat_repo.findById(id)
@@ -127,6 +131,7 @@ public class CatController {
                 .body(resource);
     }
 
+    /* delete a single item by id */
     @DeleteMapping("/categories/{id}")
     ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         cat_repo.deleteById(id);
